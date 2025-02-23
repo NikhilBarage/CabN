@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="1dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/information_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textAlignment="textStart" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rickshaw3"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="Rickshaw"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/rickshawprice"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/car4"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="Car"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/car4price"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/car6"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="Car"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/car6price"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/tempo_goods"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="Tempo"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tempoprice"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/truck"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="Truck"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/truckprice"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
