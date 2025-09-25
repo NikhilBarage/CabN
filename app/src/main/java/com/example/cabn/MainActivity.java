@@ -1,115 +1,166 @@
 package com.example.cabn;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-// Session Management
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import com.google.android.material.button.MaterialButton;
+
 
 public class MainActivity extends AppCompatActivity {
     private WebView webView;
     private SharedPreferences prefs;
     private float distancee = 0.0f;
-    private String startPlace = null, endPlace = null;
-
-    private Button bookk, logout;
+    private String startLat, startLng, endLat, endLng, userordriver;
+    private MaterialButton bookk;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check if user is logged in
+        // Check login session
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        id = prefs.getInt("myid", -1);
+        String userEmail = prefs.getString("email", "");
+        userordriver = prefs.getString("userordriver", "");
 
-        if (!isLoggedIn) {
-            // Redirect to LoginActivity
+        if (!isLoggedIn || userEmail.isEmpty() || !userordriver.equals("users") || id == -1) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
 
+        // Initialize UI
+        initializeApp();
+
+    }
+
+    private void initializeApp() {
         setContentView(R.layout.activity_main);
 
-        webView = findViewById(R.id.mapp);
-        LayoutShow layoutShow = new LayoutShow(this);
+        // Initialize UI Components
         bookk = findViewById(R.id.next);
-        //toolbar
         Toolbar toolbar = findViewById(R.id.toolbarr);
         setSupportActionBar(toolbar);
 
-        // WebView Configuration
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.loadUrl("file:///android_asset/map.html");
+        try {
+            webView = findViewById(R.id.mapp);
+            configureWebView();
+        } catch (Exception e) {
+            Toast.makeText(this, " " + e, Toast.LENGTH_SHORT).show();
+        }
 
-        //Add JavaScript Interface
-        webView.addJavascriptInterface(new WebAppInterface(), "AndroidInterface");
-
-        //Book button click
         bookk.setOnClickListener(v -> {
-            if (startPlace == null || endPlace == null || distancee <= 0.0f) {
+
+            if (startLat == null || startLng == null || endLat == null || endLng == null || distancee <= 0.0f) {
+
                 Toast.makeText(MainActivity.this, "Please wait for data to load...", Toast.LENGTH_SHORT).show();
             } else {
-                layoutShow.getView(distancee, startPlace, endPlace);
+
+                new LayoutShow(this).getView(id, "", distancee, startLat, startLng, endLat, endLng);
+
             }
         });
 
-
-
-        ImageButton logoutButton = toolbar.findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
-
-    }
-
-
-    private void logout() {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("isLoggedIn", false);
-        editor.apply();
-
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    //  JavaScript Interface
-    public class WebAppInterface {
-        @JavascriptInterface
-        public void showPlace(String start, String end) {
-            runOnUiThread(() -> {
-                startPlace = start;
-                endPlace = end;
-            });
+        MaterialButton logoutButton = findViewById(R.id.logoutButton);
+        if (logoutButton != null) {
+            logoutButton.setOnClickListener(v -> logout());
         }
+    }
+
+    private void configureWebView() {
+        if (webView == null) {
+            Toast.makeText(this, "WebView initialization failed!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient());
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+
+        webView.addJavascriptInterface(new WebAppInterface(), "AndroidInterface");
+
+        webView.loadUrl("file:///android_asset/map.html");
+    }
+
+    public class WebAppInterface {
 
         @JavascriptInterface
         public void showDistance(String distance) {
             try {
                 distancee = Float.parseFloat(distance);
+                Log.d("WebView", "Distance: " + distancee);
             } catch (NumberFormatException e) {
-                distancee = 0.0f; // Default to 0.0 if parsing fails
+                Log.e("WebView", "Invalid distance value: " + distance, e);
+                distancee = 0.0f;
             }
         }
+
+        @JavascriptInterface
+        public void showLatLng(String stLat, String stLng, String edLat, String edLng) {
+            runOnUiThread(() -> {
+                startLat = stLat;
+                startLng = stLng;
+                endLat = edLat;
+                endLng = edLng;
+                Log.d("WebView", "LatLng: " + startLat + ", " + startLng + " -> " + endLat + ", " + endLng);
+            });
+        }
+
+
+
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("isLoggedIn", false);
+        editor.putInt("myid", -1);
+        editor.putString("userordriver", "");
+        editor.apply();
+
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.usermenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.prof) {
+            startActivity(new Intent(MainActivity.this, Userprof.class));
+            finish();
+        } else if (id == R.id.hist) {
+            startActivity(new Intent(MainActivity.this, Userhist.class));
+            finish();
+        } else if (id == R.id.logout) {
+            logout();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

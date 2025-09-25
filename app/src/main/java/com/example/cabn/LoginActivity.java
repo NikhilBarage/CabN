@@ -1,136 +1,198 @@
 package com.example.cabn;
 
+import static com.example.cabn.DBConnection.checkLogin;
+import static com.example.cabn.DBConnection.sendOTP;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-//session checking
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText phoneNumber, otpInput;
+    private EditText emailInput, otpInput;
+    private MaterialCardView otpp;
     private TextView resendCode, register;
+    private RadioGroup radioGroup;
+    private String userordriver = "users";
     private Button sendCode, nextBtn;
-    private String generatedOTP;
-    private boolean isOTPSent = false;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Check if user is already logged in
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        String userorDRIVER = prefs.getString("userordriver", "");
 
-        if (isLoggedIn) {
-            // Redirect to HomePage
+        if (isLoggedIn && userorDRIVER.equals("users")) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else if (isLoggedIn && userorDRIVER.equals("drivers")) {
+            startActivity(new Intent(this, DriverMainActity.class));
             finish();
         }
 
         setContentView(R.layout.activity_login);
 
-        //toolbar
+        // Toolbar setup
         Toolbar toolbar = findViewById(R.id.toolbarr);
         setSupportActionBar(toolbar);
-        ImageButton logoutButton = toolbar.findViewById(R.id.logoutButton);
-        logoutButton.setVisibility(View.GONE); //hide toolbar logout button
+        MaterialButton logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setVisibility(View.GONE);
 
-        phoneNumber = findViewById(R.id.phone_number);
+        emailInput = findViewById(R.id.emaill);
         otpInput = findViewById(R.id.otp_input);
+        otpp = findViewById(R.id.opt_layout);
         resendCode = findViewById(R.id.resend_code);
         register = findViewById(R.id.register);
         sendCode = findViewById(R.id.send_code);
         nextBtn = findViewById(R.id.next_btn);
 
-        otpInput.setVisibility(View.GONE);
+        radioGroup = findViewById(R.id.userrrtypppp);
+
+        otpp.setVisibility(View.GONE);
         resendCode.setVisibility(View.GONE);
         nextBtn.setVisibility(View.GONE);
 
-        // Send OTP Button Click
-        sendCode.setOnClickListener(v -> {
-            String phone = phoneNumber.getText().toString().trim();
-            if (isValidPhone(phone)) {
-                sendOTP(phone);
-            } else {
-                Toast.makeText(LoginActivity.this, "Enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup groupch, int checkedId) {
+                if (checkedId == R.id.usr) {
+                    userordriver = "users";
+                } else if (checkedId == R.id.drvr) {
+                    userordriver = "drivers";
+                }
+                Toast.makeText(LoginActivity.this, "Selected: " + userordriver, Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Verify OTP Button Click
-        // Inside the nextBtn.setOnClickListener
-        nextBtn.setOnClickListener(v -> {
-            String enteredOTP = otpInput.getText().toString().trim();
-            if (isValidOTP(enteredOTP)) {
-                // Save login session
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("isLoggedIn", true);
-                editor.apply();
-
-                Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(LoginActivity.this, "Invalid OTP. Try again.", Toast.LENGTH_SHORT).show();
+        //send otp
+        sendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = emailInput.getText().toString().trim();
+                sendresend(userordriver, email);
             }
         });
 
-        // Resend OTP
-        resendCode.setOnClickListener(v -> {
-            if (isOTPSent) {
-                sendOTP(phoneNumber.getText().toString().trim());
+        //resend code
+        resendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //progressBar.setVisibility(View.VISIBLE); // Show progress bar
+                String email = emailInput.getText().toString().trim();
+                sendresend(userordriver, email);
             }
         });
 
         // Register Link
         register.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, Registration.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginActivity.this, Registration.class));
         });
+
+        //login
+        nextBtn.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim();
+            String otp = otpInput.getText().toString().trim();
+
+            if (TextUtils.isEmpty(otp) || otp.length() != 4) {
+                Toast.makeText(LoginActivity.this, "Enter a valid 4-digit OTP", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Run in background to avoid UI freeze
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                int isLogin = checkLogin(userordriver, email, Integer.parseInt(otp));
+
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    if (isLogin > 0) { // Successful login
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.putString("email", email);
+                        editor.putString("userordriver", userordriver);
+                        editor.putInt("myid", isLogin);
+
+                        editor.apply();
+
+                        // Delete OTP in a separate thread
+                        executor.execute(() -> DBConnection.deleteOTP(email));
+
+                        // Ensure activity transition happens correctly
+                        Intent i;
+                        if ("drivers".equals(userordriver)) {
+                            i = new Intent(LoginActivity.this, DriverMainActity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            i = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Invalid OTP or Something went Wrong...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+        });
+
+
     }
 
-    // Validate Phone Number
-    private boolean isValidPhone(String phone) {
-        return phone.matches("\\d{10}");
+    private void sendresend(String userordriver, String email) {
+        if (TextUtils.isEmpty(email) || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(LoginActivity.this, "Enter a valid email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Sending OTP...");
+        progressDialog.setCancelable(false); // Prevent user from dismissing it manually
+        progressDialog.show();
+
+        new Thread(() -> {
+
+            boolean isOTPSent = DBConnection.sendOTP(userordriver, email);
+
+            runOnUiThread(() -> {
+                // Dismiss ProgressDialog
+                progressDialog.dismiss();
+
+                if (isOTPSent) {
+                    Toast.makeText(LoginActivity.this, "OTP sent to your email", Toast.LENGTH_LONG).show();
+                    otpp.setVisibility(View.VISIBLE);
+                    nextBtn.setVisibility(View.VISIBLE);
+                    resendCode.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Email not registered or OTP sending failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }).start();
     }
 
-    // Validate OTP (4-digit)
-    private boolean isValidOTP(String otp) {
-        return !TextUtils.isEmpty(otp) && otp.equals(generatedOTP);
-    }
-
-    // Simulate Sending OTP
-    private void sendOTP(String phone) {
-        isOTPSent = true;
-        generatedOTP = generateRandomOTP();
-        Toast.makeText(this, "OTP Sent: " + generatedOTP, Toast.LENGTH_LONG).show();
-
-        // Show OTP input field & next button
-        otpInput.setVisibility(View.VISIBLE);
-        nextBtn.setVisibility(View.VISIBLE);
-        resendCode.setVisibility(View.VISIBLE);
-
-        // Disable Resend OTP for 30 seconds
-        resendCode.setEnabled(false);
-        new Handler().postDelayed(() -> resendCode.setEnabled(true), 30000);
-    }
-
-    // Generate a Random 4-digit OTP
-    private String generateRandomOTP() {
-        int otp = (int) (Math.random() * 9000) + 1000;
-        return String.valueOf(otp);
-    }
 }

@@ -1,203 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- prices.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="1dp">
-
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content">
 
+        <!-- Trip Info -->
         <TextView
             android:id="@+id/information_place"
+            android:text="From - ...\nTo - ...\nDistance - ..."
+            android:textSize="16sp"
+            android:textColor="#000"
+            android:layout_marginBottom="12dp"
+            android:padding="10dp"
+            android:background="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Vehicles -->
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="10dp"
-            android:textStyle="bold"
-            android:textAlignment="textStart" />
+            android:layout_marginTop="20dp"
+            android:divider="?android:attr/dividerHorizontal"
+            android:showDividers="middle">
 
+
+            <TimePicker
+                android:id="@+id/time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="5dp"
+                android:timePickerMode="spinner"  />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:divider="?android:attr/dividerVertical"
+                android:showDividers="middle">
+
+                        <TextView
+                            android:id="@+id/pick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PickUp Time - 00:00:00  "
+                            android:layout_marginVertical="5dp"
+                            android:layout_weight="1" />
+
+
+                        <Button
+                            android:id="@+id/cnfrmm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Set Time   "
+                            android:layout_marginVertical="5dp"
+                            android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <TextView
+                android:text=" Firstly, Please select the Pickup Time.\nThen only Choosing the Vehicle Possible..."
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:padding="10dp"
+                android:layout_marginVertical="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Rickshaw -->
+            <LinearLayout
+                android:id="@+id/rickshaw3"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:background="#FAFAFA"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_rickshaw"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:id="@+id/rickshawprice"
+                    android:text="₹0.00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!-- Repeat for other vehicles -->
+            <LinearLayout
+                android:id="@+id/car4"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:gravity="center_vertical"
+                android:background="#FAFAFA"
+                android:visibility="gone"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_car_4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:id="@+id/car4price"
+                    android:text="₹0.00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/car6"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:gravity="center_vertical"
+                android:background="#FAFAFA"
+                android:visibility="gone"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_car_6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:id="@+id/car6price"
+                    android:text="₹0.00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!-- tempo_goods, truck in the same style -->
+
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/rickshaw3"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="Rickshaw"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/rickshawprice"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text=""
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/car4"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="Car"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/car4price"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text=""
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/car6"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="Car"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/car6price"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text=""
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/tempo_goods"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="Tempo"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/tempoprice"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text=""
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/truck"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="Truck"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/truckprice"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text=""
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

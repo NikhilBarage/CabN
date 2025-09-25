@@ -65,6 +65,12 @@
             background-color: gray;
             cursor: not-allowed;
         }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
     </style>
 </head>
 <body>
@@ -79,12 +85,17 @@
 </div>
 
 <div id="map"></div>
+
+<div id="loading" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+    <div style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid blue; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+</div>
+
 <button id="bookButton" disabled>Find Route</button>
 
 <script>
     const key = 'EmsgGtSr2aDNx6zMJqRP';
 
-    const map = L.map('map').setView([20.5937, 78.9629], 5);
+    const map = L.map('map').setView([20.5937, 78.9629], 5); //India view
     L.tileLayer(`https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${key}`, {
         tileSize: 512,
         zoomOffset: -1,
@@ -92,6 +103,7 @@
         maxBounds: [[6, 68], [36, 97]],
         attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; OpenStreetMap contributors',
     }).addTo(map);
+
 
     let startLat = null, startLng = null, startPlace = null;
     let endLat = null, endLng = null, endPlace = null;
@@ -106,20 +118,26 @@
             map.removeControl(routeControl);
         }
 
+        //loader start
+        document.getElementById('loading').style.display = "block";
+
         routeControl = L.Routing.control({
+
             waypoints: [L.latLng(startLat, startLng), L.latLng(endLat, endLng)],
             createMarker: () => null,
             show: false,
             addWaypoints: false,
             lineOptions: { styles: [{ color: 'blue', opacity: 0.7, weight: 5 }] }
         }).on('routesfound', function (e) {
+            //loader end
+            document.getElementById('loading').style.display = "none";
             let distanceKm = (e.routes[0].summary.totalDistance / 1000).toFixed(1);
 
             if (window.AndroidInterface?.showDistance) {
                 window.AndroidInterface.showDistance(distanceKm);
             }
-            if (window.AndroidInterface?.showPlace) {
-                window.AndroidInterface.showPlace(startPlace, endPlace);
+            if (window.AndroidInterface?.showLatLng) {
+                window.AndroidInterface.showLatLng(startLat, startLng, endLat, endLng);
             }
         }).addTo(map);
 
@@ -208,7 +226,6 @@
     handleSelection(document.getElementById("destination"), document.getElementById("destination-suggestions"), false);
 
     bookButton.addEventListener("click", updateRoute);
-
 </script>
 
 </body>

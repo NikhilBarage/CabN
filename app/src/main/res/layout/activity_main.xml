@@ -1,29 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="1dp">
+    android:background="#F5F5F5">
 
     <include layout="@layout/toolbar"/>
 
     <WebView
         android:id="@+id/mapp"
         android:layout_width="match_parent"
-        android:layout_height="500dp"/>
+        android:layout_height="500dp"
+        android:layout_marginVertical="10dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:id="@+id/next"
-        android:text="Book"
-        android:layout_marginVertical="5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:id="@+id/logout"
-        android:text="Logout"
-        android:layout_marginVertical="5dp" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:id="@+id/next"
+            android:text="Book Now"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:letterSpacing="0.05"
+            app:cornerRadius="12dp"
+            app:backgroundTint="#2a6de0"
+            app:elevation="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select your pickup and drop-off locations on the map"
+            android:textColor="#757575"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
