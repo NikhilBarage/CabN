@@ -545,29 +545,9 @@ SOFTWARE.
 
 ---
 
-### 📞 **Contact & Support**
-
 <div align="center">
 
-[![Email](https://img.shields.io/badge/Email-harsh264patil%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:harsh264patil@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/harsh264patil)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/harshvardhan-patil)
-
-</div>
-
----
-
-**⭐ If you find this project helpful, please give it a star!**
-
-**🤝 Feel free to contribute and make this project even better!**
-
-</div>
-
----
-
-<div align="center">
-
-**Made with ❤️ by Nikhil Gulab Barage**
+**Made with ❤️ by Nikhil Barage**
 Contact: nikhilbarage1@gmail.com
 
 *Building the future of ride booking, one line of code at a time.*
