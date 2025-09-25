@@ -139,7 +139,7 @@ CabN Android App
 
 #### 1. Clone the Repository
 ```bash
-git clone https://github.com/Harshvardhan-Patil-264/CabNCarry_Application
+git clone https://github.com/NikhilBarage/CabN
 cd CabNCarry
 ```
 
