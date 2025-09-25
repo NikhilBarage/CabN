@@ -23,7 +23,6 @@
 - [🎯 Overview](#-overview)
 - [✨ Features](#-features)
 - [🛠️ Technologies Used](#️-technologies-used)
-- [📱 Screenshots](#-screenshots)
 - [🏗️ Architecture](#️-architecture)
 - [🚀 Installation](#-installation)
 - [⚙️ Configuration](#️-configuration)
@@ -107,48 +106,6 @@ CabN is a comprehensive ride booking Android application that connects users wit
 - **Android Studio** - Integrated development environment
 - **Git** - Version control system
 - **Gradle** - Build system and dependency management
-
----
-
-## 📱 Screenshots
-
-<div align="center">
-
-| ![Login Page](screenshots/login.png) | 
-|:---:|
-| **Login Page - Email Entry & OTP Send  :: OTP Validation :: Sign Up Form Validation** |
-
----
-
-| ![Map and Route Selection](screenshots/map_select.png) |
-|:---:|
-| **Map and Route Selection :: Display Vehicle Types and Prices :: Confirm Ride Selection** |
-
----
-
-| ![Payment Method Selection](screenshots/payment.png) | 
-|:---:|
-| **Payment Method Selection :: Ride History - View Past** |
-
----
-
-| ![Driver Login](screenshots/driver_login.png) | 
-|:---:|
-| **Driver Login with Valid Credentials :: Driver Dashboard Overview :: New Ride Request - Notification** |
-
----
-
-| ![Accept Ride](screenshots/accept_ride.png) | 
-|:---:|
-| **Accepting a Ride Request :: Ongoing Ride Interface :: Completing a Ride** |
-
----
-
-| ![Ride History Access](screenshots/ride_history_access.png) |
-|:---:|
-| **Ride History Access** |
-
-</div>
 
 ---
 
@@ -610,7 +567,8 @@ SOFTWARE.
 
 <div align="center">
 
-**Made with ❤️ by Harshvardhan Vilas Patil**
+**Made with ❤️ by Nikhil Gulab Barage**
+Contact: nikhilbarage1@gmail.com
 
 *Building the future of ride booking, one line of code at a time.*
 
