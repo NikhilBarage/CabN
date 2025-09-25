@@ -1,23 +1,5 @@
 # 🚗 CabN - Ride Booking Android App
 
-<div align="center">
-
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
-![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
-
-*A modern ride booking application built with Java and XML for Android platform*
-
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/cabn?style=social)](https://github.com/yourusername/cabn)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/cabn?style=social)](https://github.com/yourusername/cabn)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/cabn)](https://github.com/yourusername/cabn/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/cabn)](https://github.com/yourusername/cabn/pulls)
-
-</div>
-
----
-
 ## 📋 Table of Contents
 
 - [🎯 Overview](#-overview)
@@ -32,8 +14,7 @@
 - [🔒 Security Features](#-security-features)
 - [📁 Project Structure](#-project-structure)
 - [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👨‍💻 Credits](#-credits)
+
 
 ---
 
@@ -475,48 +456,6 @@ We welcome contributions to improve CabN! Here's how you can contribute:
 - Provide detailed bug descriptions
 - Include device and Android version information
 - Attach relevant logs and screenshots
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 Harshvardhan Vilas Patil
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
-
-## 👨‍💻 Credits
-
-<div align="center">
-
-### 🚀 **Developer**
-
-**Harshvardhan Vilas Patil**  
-📧 **Email**: [harsh264patil@gmail.com](mailto:harsh264patil@gmail.com)  
-🔗 **GitHub**: [@harsh264patil](https://github.com/Harshvardhan-Patil-264)
 
 ---
 
