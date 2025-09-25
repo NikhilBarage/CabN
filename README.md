@@ -1,23 +1,5 @@
 # 🚗 CabN - Ride Booking Android App
 
-## 📋 Table of Contents
-
-- [🎯 Overview](#-overview)
-- [✨ Features](#-features)
-- [🛠️ Technologies Used](#️-technologies-used)
-- [🏗️ Architecture](#️-architecture)
-- [🚀 Installation](#-installation)
-- [⚙️ Configuration](#️-configuration)
-- [📖 Usage](#-usage)
-- [🔧 API Integration](#-api-integration)
-- [🗄️ Database Schema](#️-database-schema)
-- [🔒 Security Features](#-security-features)
-- [📁 Project Structure](#-project-structure)
-- [🤝 Contributing](#-contributing)
-
-
----
-
 ## 🎯 Overview
 
 CabN is a comprehensive ride booking Android application that connects users with drivers in real-time. Built with Java and XML, it features a modern Material Design interface, secure OTP-based authentication, real-time location tracking, and an intuitive booking system.
